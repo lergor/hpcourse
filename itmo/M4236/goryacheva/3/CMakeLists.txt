@@ -10,6 +10,7 @@ link_directories(${OpenCL_LIBRARY})
 add_executable(
         ${PROJECT_NAME}
         main.cpp
+        cl.hpp
 )
 
 target_link_libraries (
@@ -20,7 +21,7 @@ target_link_libraries (
 FILE(GLOB CL_FILES *.cl)
 foreach(cl_file ${CL_FILES})
     add_custom_command(
-            TARGET convolution
+            TARGET ${PROJECT_NAME}
             POST_BUILD
             COMMAND ${CMAKE_COMMAND}
             ARGS -E copy ${cl_file} ${PROJECT_BINARY_DIR}/.
