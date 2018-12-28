@@ -36,7 +36,6 @@ void read_input(std::string const &file, matrix_t &A, matrix_t &B) {
     std::ifstream input(file.c_str());
     size_t N, M;
     input >> N >> M;
-    std::cout << N << " " << M << '\n';
 
     A = matrix_t(N);
     B = matrix_t(M);
@@ -56,11 +55,9 @@ void write_result(std::string const &file, matrix_t const &result) {
     size_t N = result.size;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            output << result.elements[i * N + j] << " ";
-            std::cout << std::fixed << std::setprecision(PRECISION) << result.elements[i * N + j] << " ";
+            output << std::fixed << std::setprecision(PRECISION) << result.elements[i * N + j] << " ";
         }
         output << std::endl;
-        std::cout << '\n';
     }
     output.close();
 }
@@ -110,16 +107,6 @@ int main() {
 
         matrix_t A, B;
         read_input(INPUT_FILE, A, B);
-        /////////////////////////////////////////////////////////////
-        for (int i = 0; i < A.elements.size(); i++) {
-            std::cout << A.elements[i] << " ";
-        }
-        std::cout << '\n';
-        for (int i = 0; i < B.elements.size(); i++) {
-            std::cout << B.elements[i] << " ";
-        }
-        std::cout << '\n';
-        /////////////////////////////////////////////////////////////
         matrix_t C(A.size);
 
         // allocate device buffer to hold message
@@ -132,7 +119,6 @@ int main() {
         queue.enqueueWriteBuffer(dev_b, CL_TRUE, 0, sizeof(float) * B.elements_num(), B.elements.data());
 
         size_t thread_size = calculate_thread_size(A.size);
-        std::cout << "thread size: " << thread_size << '\n';
 
         // load named kernel from opencl source
         queue.finish();
