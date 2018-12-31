@@ -25,7 +25,6 @@ void read_input(std::string const &file, std::vector<float> &vec) {
     for (int i = 0; i < N; i++) {
         input >> vec[i];
     }
-    std::cout << "\n";
     input.close();
 }
 
@@ -76,6 +75,7 @@ std::vector<float> prefix_sum(std::vector<float> const &input_data) {
             std::string log_str = program.getBuildInfo<CL_PROGRAM_BUILD_LOG>(devices[0]);
             std::cout << std::endl << e.what() << " : " << e.err() << std::endl;
             std::cout << log_str;
+            exit(1);
         }
 
         std::vector<float> input = input_data;
